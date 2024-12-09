@@ -1,0 +1,1907 @@
+{
+	"info": {
+		"_postman_id": "aac09645-d461-4707-80df-cff95d1b8bb0",
+		"name": "User_Managment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39912218"
+	},
+	"item": [
+		{
+			"name": "Scenario_tests",
+			"item": [
+				{
+					"name": "Create_and_Get_user_by_username",
+					"item": [
+						{
+							"name": "Wrong_username",
+							"item": [
+								{
+									"name": "Create_new_user",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Base username\r",
+													"let baseUsername = \"User\";\r",
+													"\r",
+													"// Generate a unique value (e.g., timestamp or random number)\r",
+													"let uniqueValue = Date.now(); // Timestamp\r",
+													"let uniqueCode = Math.floor(Math.random() * 100);\r",
+													"// Alternatively, use a random number: Math.floor(Math.random() * 100000);\r",
+													"\r",
+													"// Combine base username with unique value\r",
+													"let uniqueUsername = `${baseUsername}_${uniqueValue}`;\r",
+													"let uniqueEmail = `${uniqueValue}@gmail.com`;\r",
+													"let uniquePassword = `${uniqueCode}${uniqueValue}`;\r",
+													"\r",
+													"pm.collectionVariables.set(\"username\", uniqueUsername)\r",
+													"pm.collectionVariables.set(\"email\", uniqueEmail)\r",
+													"pm.collectionVariables.set(\"password\", uniquePassword)\r",
+													"\r",
+													"// Set the unique username in the request body\r",
+													"let requestBody = {\r",
+													"    \"username\": uniqueUsername,\r",
+													"    \"email\": uniqueEmail,\r",
+													"    \"password\": uniquePassword\r",
+													"};\r",
+													"\r",
+													"// Convert the object to a JSON string and set it as the body\r",
+													"pm.request.body.raw = JSON.stringify(requestBody);\r",
+													"// pm.request.body.update(JSON.stringify(requestBody));\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 201\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/register",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get_user_by_username",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response message should be: 'Oh no, you've deleted 'User Name'!'\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(jsonData.error).to.equal(\"User not found.\");\r",
+													"    \r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:3000/user/username/John",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"user",
+												"username",
+												"John"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Create_new_user",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Base username\r",
+											"let baseUsername = \"User\";\r",
+											"\r",
+											"// Generate a unique value (e.g., timestamp or random number)\r",
+											"let uniqueValue = Date.now(); // Timestamp\r",
+											"let uniqueCode = Math.floor(Math.random() * 100);\r",
+											"// Alternatively, use a random number: Math.floor(Math.random() * 100000);\r",
+											"\r",
+											"// Combine base username with unique value\r",
+											"let uniqueUsername = `${baseUsername}_${uniqueValue}`;\r",
+											"let uniqueEmail = `${uniqueValue}@gmail.com`;\r",
+											"let uniquePassword = `${uniqueCode}${uniqueValue}`;\r",
+											"\r",
+											"pm.collectionVariables.set(\"username1\", uniqueUsername)\r",
+											"pm.collectionVariables.set(\"email1\", uniqueEmail)\r",
+											"pm.collectionVariables.set(\"password1\", uniquePassword)\r",
+											"\r",
+											"// Set the unique username in the request body\r",
+											"let requestBody = {\r",
+											"    \"username\": uniqueUsername,\r",
+											"    \"email\": uniqueEmail,\r",
+											"    \"password\": uniquePassword\r",
+											"};\r",
+											"\r",
+											"// Convert the object to a JSON string and set it as the body\r",
+											"pm.request.body.raw = JSON.stringify(requestBody);\r",
+											"// pm.request.body.update(JSON.stringify(requestBody));\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_user_by_username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"User name same\", () => {\r",
+											"    const userUsername = pm.collectionVariables.get(\"username1\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.username).to.be.eq(userUsername);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Email is good\", () => {\r",
+											"    const userEmail = pm.collectionVariables.get(\"email1\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.email).to.be.eq(userEmail);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Password is good\", () => {\r",
+											"    const userPassword = pm.collectionVariables.get(\"password1\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.password).to.be.eq(userPassword);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"packages": {},
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/user/username/{{username1}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										"username",
+										"{{username1}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create_and_Get_user_by_email",
+					"item": [
+						{
+							"name": "Create_new_user",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Base username\r",
+											"let baseUsername = \"User\";\r",
+											"\r",
+											"// Generate a unique value (e.g., timestamp or random number)\r",
+											"let uniqueValue = Date.now(); // Timestamp\r",
+											"let uniqueCode = Math.floor(Math.random() * 100);\r",
+											"// Alternatively, use a random number: Math.floor(Math.random() * 100000);\r",
+											"\r",
+											"// Combine base username with unique value\r",
+											"let uniqueUsername = `${baseUsername}_${uniqueValue}`;\r",
+											"let uniqueEmail = `${uniqueValue}@gmail.com`;\r",
+											"let uniquePassword = `${uniqueCode}${uniqueValue}`;\r",
+											"\r",
+											"pm.collectionVariables.set(\"username2\", uniqueUsername)\r",
+											"pm.collectionVariables.set(\"email2\", uniqueEmail)\r",
+											"pm.collectionVariables.set(\"password2\", uniquePassword)\r",
+											"\r",
+											"// Set the unique username in the request body\r",
+											"let requestBody = {\r",
+											"    \"username\": uniqueUsername,\r",
+											"    \"email\": uniqueEmail,\r",
+											"    \"password\": uniquePassword\r",
+											"};\r",
+											"\r",
+											"// Convert the object to a JSON string and set it as the body\r",
+											"pm.request.body.raw = JSON.stringify(requestBody);\r",
+											"// pm.request.body.update(JSON.stringify(requestBody));\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_user_by_email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"User name same\", () => {\r",
+											"    const userUsername = pm.collectionVariables.get(\"username2\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.username).to.be.eq(userUsername);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Email is good\", () => {\r",
+											"    const userEmail = pm.collectionVariables.get(\"email2\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.email).to.be.eq(userEmail);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Password is good\", () => {\r",
+											"    const userPassword = pm.collectionVariables.get(\"password2\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.password).to.be.eq(userPassword);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/user/email/{{email2}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										"email",
+										"{{email2}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create_and_Get_all",
+					"item": [
+						{
+							"name": "Create_new_user",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Base username\r",
+											"let baseUsername = \"User\";\r",
+											"\r",
+											"// Generate a unique value (e.g., timestamp or random number)\r",
+											"let uniqueValue = Date.now(); // Timestamp\r",
+											"let uniqueCode = Math.floor(Math.random() * 100);\r",
+											"// Alternatively, use a random number: Math.floor(Math.random() * 100000);\r",
+											"\r",
+											"// Combine base username with unique value\r",
+											"let uniqueUsername = `${baseUsername}_${uniqueValue}`;\r",
+											"let uniqueEmail = `${uniqueValue}@gmail.com`;\r",
+											"let uniquePassword = `${uniqueCode}${uniqueValue}`;\r",
+											"\r",
+											"pm.collectionVariables.set(\"username\", uniqueUsername)\r",
+											"pm.collectionVariables.set(\"email\", uniqueEmail)\r",
+											"pm.collectionVariables.set(\"password\", uniquePassword)\r",
+											"\r",
+											"// Set the unique username in the request body\r",
+											"let requestBody = {\r",
+											"    \"username\": uniqueUsername,\r",
+											"    \"email\": uniqueEmail,\r",
+											"    \"password\": uniquePassword\r",
+											"};\r",
+											"\r",
+											"// Convert the object to a JSON string and set it as the body\r",
+											"pm.request.body.raw = JSON.stringify(requestBody);\r",
+											"// pm.request.body.update(JSON.stringify(requestBody));\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_user_by_username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"User name same\", () => {\r",
+											"    const userUsername = pm.collectionVariables.get(\"username\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.username).to.be.eq(userUsername);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Email is good\", () => {\r",
+											"    const userEmail = pm.collectionVariables.get(\"email\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.email).to.be.eq(userEmail);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Password is good\", () => {\r",
+											"    const userPassword = pm.collectionVariables.get(\"password\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.password).to.be.eq(userPassword);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/user/username/{{username}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										"username",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find_user_in_all_users_list",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Checking if the username from the variables is in the body response list\r",
+											"pm.test(\"Check if the username from the variables is in the body response list\", function () {\r",
+											"    var responseJSON = pm.response.json();\r",
+											"    var searchUser = pm.collectionVariables.get(\"username\");\r",
+											"\r",
+											"    var userExists = responseJSON.some((user) => user.username === searchUser);\r",
+											"    pm.expect(userExists).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create_and_Login",
+					"item": [
+						{
+							"name": "Wrong_email",
+							"item": [
+								{
+									"name": "Create_new_user",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Base username\r",
+													"let baseUsername = \"User\";\r",
+													"\r",
+													"// Generate a unique value (e.g., timestamp or random number)\r",
+													"let uniqueValue = Date.now(); // Timestamp\r",
+													"let uniqueCode = Math.floor(Math.random() * 100);\r",
+													"// Alternatively, use a random number: Math.floor(Math.random() * 100000);\r",
+													"\r",
+													"// Combine base username with unique value\r",
+													"let uniqueUsername = `${baseUsername}_${uniqueValue}`;\r",
+													"let uniqueEmail = `${uniqueValue}@gmail.com`;\r",
+													"let uniquePassword = `${uniqueCode}${uniqueValue}`;\r",
+													"\r",
+													"pm.collectionVariables.set(\"username\", uniqueUsername)\r",
+													"pm.collectionVariables.set(\"email\", uniqueEmail)\r",
+													"pm.collectionVariables.set(\"password\", uniquePassword)\r",
+													"\r",
+													"// Set the unique username in the request body\r",
+													"let requestBody = {\r",
+													"    \"username\": uniqueUsername,\r",
+													"    \"email\": uniqueEmail,\r",
+													"    \"password\": uniquePassword\r",
+													"};\r",
+													"\r",
+													"// Convert the object to a JSON string and set it as the body\r",
+													"pm.request.body.raw = JSON.stringify(requestBody);\r",
+													"// pm.request.body.update(JSON.stringify(requestBody));\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 201\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/register",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get_user_by_username",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"User name same\", () => {\r",
+													"    const userUsername = pm.collectionVariables.get(\"username\");\r",
+													"    const responseData = pm.response.json();\r",
+													"\r",
+													"    pm.expect(responseData.username).to.be.eq(userUsername);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Email is good\", () => {\r",
+													"    const userEmail = pm.collectionVariables.get(\"email\");\r",
+													"    const responseData = pm.response.json();\r",
+													"\r",
+													"    pm.expect(responseData.email).to.be.eq(userEmail);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Password is good\", () => {\r",
+													"    const userPassword = pm.collectionVariables.get(\"password\");\r",
+													"    const responseData = pm.response.json();\r",
+													"\r",
+													"    pm.expect(responseData.password).to.be.eq(userPassword);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:3000/user/username/{{username}}",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"user",
+												"username",
+												"{{username}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Login_user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response message should be: 'Invalid email or password.'\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.error).to.equal(\"Invalid email or password.\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"myEmail@gmail.com\",\r\n    \"password\": \"{{password}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/login",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Create_new_user",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Base username\r",
+											"let baseUsername = \"User\";\r",
+											"\r",
+											"// Generate a unique value (e.g., timestamp or random number)\r",
+											"let uniqueValue = Date.now(); // Timestamp\r",
+											"let uniqueCode = Math.floor(Math.random() * 100);\r",
+											"// Alternatively, use a random number: Math.floor(Math.random() * 100000);\r",
+											"\r",
+											"// Combine base username with unique value\r",
+											"let uniqueUsername = `${baseUsername}_${uniqueValue}`;\r",
+											"let uniqueEmail = `${uniqueValue}@gmail.com`;\r",
+											"let uniquePassword = `${uniqueCode}${uniqueValue}`;\r",
+											"\r",
+											"pm.collectionVariables.set(\"username\", uniqueUsername)\r",
+											"pm.collectionVariables.set(\"email\", uniqueEmail)\r",
+											"pm.collectionVariables.set(\"password\", uniquePassword)\r",
+											"\r",
+											"// Set the unique username in the request body\r",
+											"let requestBody = {\r",
+											"    \"username\": uniqueUsername,\r",
+											"    \"email\": uniqueEmail,\r",
+											"    \"password\": uniquePassword\r",
+											"};\r",
+											"\r",
+											"// Convert the object to a JSON string and set it as the body\r",
+											"pm.request.body.raw = JSON.stringify(requestBody);\r",
+											"// pm.request.body.update(JSON.stringify(requestBody));\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_user_by_username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"User name same\", () => {\r",
+											"    const userUsername = pm.collectionVariables.get(\"username\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.username).to.be.eq(userUsername);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Email is good\", () => {\r",
+											"    const userEmail = pm.collectionVariables.get(\"email\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.email).to.be.eq(userEmail);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Password is good\", () => {\r",
+											"    const userPassword = pm.collectionVariables.get(\"password\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.password).to.be.eq(userPassword);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/user/username/{{username}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										"username",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response message should be: 'Login successful.'\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.equal(\"Login successful.\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create_and_Update_user_by_username",
+					"item": [
+						{
+							"name": "Empty_email",
+							"item": [
+								{
+									"name": "Create_new_user",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Base username\r",
+													"let baseUsername = \"User\";\r",
+													"\r",
+													"// Generate a unique value (e.g., timestamp or random number)\r",
+													"let uniqueValue = Date.now(); // Timestamp\r",
+													"let uniqueCode = Math.floor(Math.random() * 100);\r",
+													"// Alternatively, use a random number: Math.floor(Math.random() * 100000);\r",
+													"\r",
+													"// Combine base username with unique value\r",
+													"let uniqueUsername = `${baseUsername}_${uniqueValue}`;\r",
+													"let uniqueEmail = `${uniqueValue}@gmail.com`;\r",
+													"let uniquePassword = `${uniqueCode}${uniqueValue}`;\r",
+													"\r",
+													"pm.collectionVariables.set(\"username\", uniqueUsername)\r",
+													"pm.collectionVariables.set(\"email\", uniqueEmail)\r",
+													"pm.collectionVariables.set(\"password\", uniquePassword)\r",
+													"\r",
+													"// Set the unique username in the request body\r",
+													"let requestBody = {\r",
+													"    \"username\": uniqueUsername,\r",
+													"    \"email\": uniqueEmail,\r",
+													"    \"password\": uniquePassword\r",
+													"};\r",
+													"\r",
+													"// Convert the object to a JSON string and set it as the body\r",
+													"pm.request.body.raw = JSON.stringify(requestBody);\r",
+													"// pm.request.body.update(JSON.stringify(requestBody));\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 201\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response time is less than 500ms\", function () {\r",
+													"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/register",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get_user_by_username",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"User exist\", () => {\r",
+													"    const userUsername = pm.collectionVariables.get(\"username\");\r",
+													"    const responseData = pm.response.json();\r",
+													"\r",
+													"    pm.expect(responseData.username).to.be.eq(userUsername);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Email is good\", () => {\r",
+													"    const userEmail = pm.collectionVariables.get(\"email\");\r",
+													"    const responseData = pm.response.json();\r",
+													"\r",
+													"    pm.expect(responseData.email).to.be.eq(userEmail);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Password is good\", () => {\r",
+													"    const userPassword = pm.collectionVariables.get(\"password\");\r",
+													"    const responseData = pm.response.json();\r",
+													"\r",
+													"    pm.expect(responseData.password).to.be.eq(userPassword);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:3000/user/username/{{username}}",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"user",
+												"username",
+												"{{username}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update_user",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Base username\r",
+													"let baseUsername = \"Updated_User\";\r",
+													"\r",
+													"// Generate a unique value (e.g., timestamp or random number)\r",
+													"let uniqueValue = Date.now(); // Timestamp\r",
+													"let uniqueCode = Math.floor(Math.random() * 100);\r",
+													"// Alternatively, use a random number: Math.floor(Math.random() * 100000);\r",
+													"\r",
+													"// Combine base username with unique value\r",
+													"let uniqueUsername = `${baseUsername}_${uniqueValue}`;\r",
+													"let uniqueEmail = `Upd_${uniqueValue}@gmail.com`;\r",
+													"let uniquePassword = `${uniqueCode}${uniqueValue}`;\r",
+													"\r",
+													"pm.collectionVariables.set(\"username\", uniqueUsername)\r",
+													"pm.collectionVariables.set(\"email\", uniqueEmail)\r",
+													"pm.collectionVariables.set(\"password\", uniquePassword)\r",
+													"\r",
+													"// Set the unique username in the request body\r",
+													"let requestBody = {\r",
+													"    \"newUsername\": uniqueUsername,\r",
+													"    \"newEmail\": \" \",\r",
+													"    \"newPassword\": uniquePassword\r",
+													"};\r",
+													"\r",
+													"// Convert the object to a JSON string and set it as the body\r",
+													"pm.request.body.raw = JSON.stringify(requestBody);\r",
+													"// pm.request.body.update(JSON.stringify(requestBody));\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response message should be: 'Invalid email format.'\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.error).to.equal(\"Invalid email format.\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/user/{{username}}",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"user",
+												"{{username}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Create_new_user",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Base username\r",
+											"let baseUsername = \"User\";\r",
+											"\r",
+											"// Generate a unique value (e.g., timestamp or random number)\r",
+											"let uniqueValue = Date.now(); // Timestamp\r",
+											"let uniqueCode = Math.floor(Math.random() * 100);\r",
+											"// Alternatively, use a random number: Math.floor(Math.random() * 100000);\r",
+											"\r",
+											"// Combine base username with unique value\r",
+											"let uniqueUsername = `${baseUsername}_${uniqueValue}`;\r",
+											"let uniqueEmail = `${uniqueValue}@gmail.com`;\r",
+											"let uniquePassword = `${uniqueCode}${uniqueValue}`;\r",
+											"\r",
+											"pm.collectionVariables.set(\"username5\", uniqueUsername)\r",
+											"pm.collectionVariables.set(\"email5\", uniqueEmail)\r",
+											"pm.collectionVariables.set(\"password5\", uniquePassword)\r",
+											"\r",
+											"// Set the unique username in the request body\r",
+											"let requestBody = {\r",
+											"    \"username\": uniqueUsername,\r",
+											"    \"email\": uniqueEmail,\r",
+											"    \"password\": uniquePassword\r",
+											"};\r",
+											"\r",
+											"// Convert the object to a JSON string and set it as the body\r",
+											"pm.request.body.raw = JSON.stringify(requestBody);\r",
+											"// pm.request.body.update(JSON.stringify(requestBody));\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_user_by_username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"User exist\", () => {\r",
+											"    const userUsername = pm.collectionVariables.get(\"username5\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.username).to.be.eq(userUsername);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Email is good\", () => {\r",
+											"    const userEmail = pm.collectionVariables.get(\"email5\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.email).to.be.eq(userEmail);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Password is good\", () => {\r",
+											"    const userPassword = pm.collectionVariables.get(\"password5\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.password).to.be.eq(userPassword);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/user/username/{{username5}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										"username",
+										"{{username5}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update_user",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Base username\r",
+											"let baseUsername = \"Updated_User\";\r",
+											"\r",
+											"// Generate a unique value (e.g., timestamp or random number)\r",
+											"let uniqueValue = Date.now(); // Timestamp\r",
+											"let uniqueCode = Math.floor(Math.random() * 100);\r",
+											"// Alternatively, use a random number: Math.floor(Math.random() * 100000);\r",
+											"\r",
+											"// Combine base username with unique value\r",
+											"let uniqueUsername = `${baseUsername}_${uniqueValue}`;\r",
+											"let uniqueEmail = `Upd_${uniqueValue}@gmail.com`;\r",
+											"let uniquePassword = `${uniqueCode}${uniqueValue}`;\r",
+											"\r",
+											"pm.collectionVariables.set(\"username_upd\", uniqueUsername)\r",
+											"pm.collectionVariables.set(\"email_upd\", uniqueEmail)\r",
+											"pm.collectionVariables.set(\"password_upd\", uniquePassword)\r",
+											"\r",
+											"// Set the unique username in the request body\r",
+											"let requestBody = {\r",
+											"    \"newUsername\": uniqueUsername,\r",
+											"    \"newEmail\": uniqueEmail,\r",
+											"    \"newPassword\": uniquePassword\r",
+											"};\r",
+											"\r",
+											"// Convert the object to a JSON string and set it as the body\r",
+											"pm.request.body.raw = JSON.stringify(requestBody);\r",
+											"// pm.request.body.update(JSON.stringify(requestBody));\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response message should be: 'User details updated successfully.'\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.equal(\"User details updated successfully.\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/user/{{username5}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										"{{username5}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_updated_user_by_username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"User name same\", () => {\r",
+											"    const userUsername = pm.collectionVariables.get(\"username_upd\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.username).to.be.eq(userUsername);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Email is good\", () => {\r",
+											"    const userEmail = pm.collectionVariables.get(\"email_upd\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.email).to.be.eq(userEmail);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Password is good\", () => {\r",
+											"    const userPassword = pm.collectionVariables.get(\"password_upd\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.password).to.be.eq(userPassword);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/user/username/{{username_upd}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										"username",
+										"{{username_upd}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find_updated_user_in_all_users_list",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Checking if the username from the variables is in the body response list\r",
+											"pm.test(\"Check if the username from the variables is in the body response list\", function () {\r",
+											"    var responseJSON = pm.response.json();\r",
+											"    var searchUser = pm.collectionVariables.get(\"username_upd\");\r",
+											"\r",
+											"    var userExists = responseJSON.some((user) => user.username === searchUser);\r",
+											"    pm.expect(userExists).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create_and_Delete_user_by_username",
+					"item": [
+						{
+							"name": "Create_new_user",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Base username\r",
+											"let baseUsername = \"User\";\r",
+											"\r",
+											"// Generate a unique value (e.g., timestamp or random number)\r",
+											"let uniqueValue = Date.now(); // Timestamp\r",
+											"let uniqueCode = Math.floor(Math.random() * 100);\r",
+											"// Alternatively, use a random number: Math.floor(Math.random() * 100000);\r",
+											"\r",
+											"// Combine base username with unique value\r",
+											"let uniqueUsername = `${baseUsername}_${uniqueValue}`;\r",
+											"let uniqueEmail = `${uniqueValue}@gmail.com`;\r",
+											"let uniquePassword = `${uniqueCode}${uniqueValue}`;\r",
+											"\r",
+											"pm.collectionVariables.set(\"username\", uniqueUsername)\r",
+											"pm.collectionVariables.set(\"email\", uniqueEmail)\r",
+											"pm.collectionVariables.set(\"password\", uniquePassword)\r",
+											"\r",
+											"// Set the unique username in the request body\r",
+											"let requestBody = {\r",
+											"    \"username\": uniqueUsername,\r",
+											"    \"email\": uniqueEmail,\r",
+											"    \"password\": uniquePassword\r",
+											"};\r",
+											"\r",
+											"// Convert the object to a JSON string and set it as the body\r",
+											"pm.request.body.raw = JSON.stringify(requestBody);\r",
+											"// pm.request.body.update(JSON.stringify(requestBody));\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_user_by_username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"User name same\", () => {\r",
+											"    const userUsername = pm.collectionVariables.get(\"username\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.username).to.be.eq(userUsername);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Email is good\", () => {\r",
+											"    const userEmail = pm.collectionVariables.get(\"email\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.email).to.be.eq(userEmail);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Password is good\", () => {\r",
+											"    const userPassword = pm.collectionVariables.get(\"password\");\r",
+											"    const responseData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseData.password).to.be.eq(userPassword);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/user/username/{{username}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										"username",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const userUsername = pm.variables.get(\"username\");\r",
+											"\r",
+											"pm.test(\"Response message should be: 'Oh no, you've deleted 'User Name'!'\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    \r",
+											"    pm.expect(jsonData.message).to.equal(`Oh no, you've deleted '${userUsername}'!`);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"console.log(userUsername);\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/user/{{username}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_deleted_user_by_username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 404\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response message should be: 'User not found.'\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.error).to.equal(\"User not found.\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/user/username/{{username}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										"username",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find_updated_user_in_all_users_list Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check if the username from the variables is not in the body response list\", function () {\r",
+											"    var responseJSON = pm.response.json();\r",
+											"    var searchUser = pm.collectionVariables.get(\"username\");\r",
+											"\r",
+											"    var userExists = responseJSON.some((user) => user.username === searchUser);\r",
+											"    pm.expect(userExists).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"packages": {},
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "username",
+			"value": ""
+		},
+		{
+			"key": "email",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "username5",
+			"value": ""
+		},
+		{
+			"key": "email5",
+			"value": ""
+		},
+		{
+			"key": "password5",
+			"value": ""
+		},
+		{
+			"key": "username_upd",
+			"value": ""
+		},
+		{
+			"key": "email_upd",
+			"value": ""
+		},
+		{
+			"key": "password_upd",
+			"value": ""
+		}
+	]
+}
